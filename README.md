@@ -5,11 +5,18 @@ This is a [Jekyll](http://jekyllrb.com/) plugin for displaying reading time dura
 - [zachleat/reading_time.rb](https://gist.github.com/zachleat/5792681)
 - [Medium Style Time to Read in Jekyll](http://jamiecollinson.com/blog/medium-style-time-to-read-in-jekyll/)
 
+## Table of contents
+
+* [Installation](#installation)
+  * [Using Git](#using-git)
+* [Configuration](#configuration)
+* [Usage](#usage)
+
 ## Installation
 
 To install this plugin simply download an put the [reading_time_filter.rb](https://github.com/risan/jekyll-reading-time/blob/master/reading_time_filter.rb) file inside `_plugins` directory on your Jekyll installation.
 
-## Using Git
+### Using Git
 
 You may also download this plugin by leveraging Git command. Run the following command:
 
@@ -42,7 +49,7 @@ reading_time:
   minute_plural: "min"    # default: minutes
 ```
 
-## Usage Example
+## Usage
 
 To use this plugin, simply use it as a filter to your post content, page content, or any text.
 
