@@ -1,7 +1,14 @@
 module ReadingTimeFilter
   def reading_time( input )
-    # Get words count.
-    words = input.split.size
+    # Strip multiline code blocks from word count
+    # do not mutate original variable `input`
+    text = input.dup
+    re = /(?m)<pre .+?<\/pre>/
+    text.gsub!(re, '')
+    text = strip_html(text)
+    # Get words count
+    words = text.split.size
+    # print words,"\n"
 
     # Average reading words per minute.
     words_per_minute = 180
