@@ -1,46 +1,36 @@
 # Jekyll Reading Time
 
-This is a [Jekyll](http://jekyllrb.com/) plugin for displaying reading time duration for a given post, page, or any content. This plugin acts as a Jekyll [liquid filter](http://jekyllrb.com/docs/plugins/#liquid-filters). Heavily inspired by:
+A simple Jekyll plugin for displaying a reading time duration. It can either be a content from a post, a page, or a string.
 
-- [zachleat/reading_time.rb](https://gist.github.com/zachleat/5792681)
-- [Medium Style Time to Read in Jekyll](http://jamiecollinson.com/blog/medium-style-time-to-read-in-jekyll/)
-
-## Table of contents
-
-* [Installation](#installation)
-  * [Using Git](#using-git)
-* [Configuration](#configuration)
-* [Usage](#usage)
+Heavily inspired by this gist: [zachleat/reading_time.rb](https://gist.github.com/zachleat/5792681).
 
 ## Installation
 
-To install this plugin simply download an put the [reading_time_filter.rb](https://github.com/risan/jekyll-reading-time/blob/master/reading_time_filter.rb) file inside `_plugins` directory on your Jekyll installation.
+Simply download the [reading_time_filter.rb](https://github.com/risan/jekyll-reading-time/blob/master/reading_time_filter.rb) file and store it within the `_plugins` directory on your Jekyll installation.
 
 ### Using Git
 
-You may also download this plugin by leveraging Git command. Run the following command:
+You can also use `git` to download the plugin:
 
 ```bash
-git clone https://github.com/risan/jekyll-reading-time.git /path/to/_plugins
+$ git clone https://github.com/risan/jekyll-reading-time.git /path/to/_plugins
 ```
 
 Or if you prefer to use ssh:
 
 ```bash
-git clone git@github.com:risan/jekyll-reading-time.git /path/to/_plugins
+$ git clone git@github.com:risan/jekyll-reading-time.git /path/to/_plugins
 ```
-
-The above commands will download the repository to `_plugins/jekyll-reading-time` inside your Jekyll installation directory.
 
 ## Configuration
 
-By default this plugin will use the follwing text durations as a suffix:
+By default, this plugin will use the following suffixes as a time duration:
 
-- seconds
-- minute
-- minutes
+* `seconds`: Plural form for second
+* `minute`: Singular form for minute
+* `minutes`: Plural form for minutes
 
-However you may override the default suffix, by adding this directives on your `_config.yml`:
+You can override these suffixes by adding the `reading_time` directive to your `_config.yml` file:
 
 ```yml
 reading_time:
@@ -51,19 +41,27 @@ reading_time:
 
 ## Usage
 
-To use this plugin, simply use it as a filter to your post content, page content, or any text.
+This plugin registers a new Liquid filter that you can use to calculate the reading time duration. You can pass the content of a post, a page, or a string.
 
 ```liquid
-{{ "post content or any text" | reading_time }}
+{{ content | reading_time }}
+
+{{ "Lorem ipsum dolor" | reading_time }}
 ```
 
-For a more complete example, consider you are looping through a post collection on `index.html`. You may display the reading time for each post like this:
+Here's another example. Let's say you want to display all posts' title along with the reading time:
 
 ```liquid
-{% for post in site.posts %}
-  <h2>{{ post.title }}</h2>
-  <time>{{ post.date | date: "%b %-d, %Y" }}</time>
-  <span>{{ post.content | reading_time }}</span>
-  <div class="entry">{{ post.content }}</div>
-{% endfor %}
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <span>{{ post.title }}</span>
+      <span>{{ post.content | reading_time }}</span>
+    </li>
+  {% endfor %}
+</ul>
 ```
+
+## License
+
+MIT © [Risan Bagja Pradana](https://bagja.net)
