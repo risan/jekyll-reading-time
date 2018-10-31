@@ -1,12 +1,11 @@
 module ReadingTimeFilter
-  def reading_time( input )
+  include Liquid::StandardFilters
+
+  def reading_time(input)
     # Get words count.
-    words = input.split.size
+    total_words = get_plain_text(input).split.size
 
-    # Average reading words per minute.
-    words_per_minute = 180
-
-    # Load configuration directive.
+    # Load configuration.
     config = @context.registers[:site].config["reading_time"]
 
     # Setup default value.
@@ -20,8 +19,11 @@ module ReadingTimeFilter
       minute_plural = config["minute_plural"] ? config["minute_plural"] : "minutes"
     end
 
+    # Average reading words per minute.
+    words_per_minute = 180
+
     # Calculate reading time.
-    case words
+    case total_words
     when 0 .. 89
       return "30 #{second_plural}"
     when 90 .. 269
@@ -35,9 +37,18 @@ module ReadingTimeFilter
     when 810 .. 990
       return "5 #{minute_plural}"
     else
-      minutes = ( words / words_per_minute ).floor
+      minutes = ( total_words / words_per_minute ).floor
       return "#{minutes} #{minute_plural}";
     end
+  end
+
+  def get_plain_text(input)
+    strip_html(strip_pre_tags(input))
+  end
+
+  def strip_pre_tags(input)
+    empty = ''.freeze
+    input.to_s.gsub(/<pre(?:(?!<\/pre).|\s)*<\/pre>/mi, empty)
   end
 end
 
