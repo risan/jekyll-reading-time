@@ -28,7 +28,7 @@ module ReadingTimeFilter
       return "30 #{second_plural}"
     when 90 .. 269
       return "1 #{minute_singular}"
-    when 230 .. 449
+    when 270 .. 449
       return "2 #{minute_plural}"
     when 450 .. 629
       return "3 #{minute_plural}"
